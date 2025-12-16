@@ -1,11 +1,9 @@
-import TelegramBot from "node-telegram-bot-api";
-import { config } from "dotenv";
-config();
+//     
 import { bot } from "./src/bot/bot.js";
 import onStart from "./src/bot/handlers/onStart.js";
 
 
-export const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+
 const CHANNEL_ID = "@https://t.me/+0RxmcNm4M_I0NzEy";
 
 const checkIfUserSubscribed = async (chatId) => {
@@ -66,21 +64,13 @@ bot.on("message", async (msg) => {
     );
   }
 
-  if (text == "/start") {
-    return onStart(msg);
-  }
 
-  bot.sendMessage(chatId, `Assalomu aleykum, ${firstname}`);
-  bot.sendMessage(chatId, `text: ${text}`);
 });
 
 bot.on("callback_query", async (query) => {
   const msg = query.message;
   const data = query.data;
   const id = query.id;
-
-  const chatId = msg.chat.id;
-  const firstname = msg.chat.first_name;
 
   if (data == "confirm_subscribtion") {
     const subscription = await checkIfUserSubscribed(chatId);
